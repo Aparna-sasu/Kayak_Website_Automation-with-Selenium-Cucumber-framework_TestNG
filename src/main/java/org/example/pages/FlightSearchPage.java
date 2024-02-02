@@ -2,6 +2,7 @@ package org.example.pages;
 
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
@@ -11,8 +12,11 @@ import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.sql.ClientInfoStatus;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 public class FlightSearchPage {
     private WebDriver driver;
@@ -33,7 +37,7 @@ public class FlightSearchPage {
     @FindBy(xpath = "//div[contains(@id,'credential_picker_container')]")
     WebElement parentDiv;
 
-    @FindBy(xpath = "//div[@class = 'sR_k sR_k-mod-size-mcfly sR_k-mod-radius-base sR_k-pres-mcfly sR_k-mod-variant-inline sR_k-mod-responsive']/div[1]")
+    @FindBy(xpath = "//span[@aria-label = 'Start date calendar input']")
     WebElement departureDate;
 
     @FindBy(xpath = "//div[@class = 'sR_k sR_k-mod-size-mcfly sR_k-mod-radius-base sR_k-pres-mcfly sR_k-mod-variant-inline sR_k-mod-responsive']/div[3]")
@@ -41,40 +45,50 @@ public class FlightSearchPage {
 
     @FindBy(xpath = "//button[@aria-label='Search']")
     WebElement searchButton;
-
+    @FindBy(xpath = ".//div[@class='wHSr-monthName']")
+    WebElement monthName;
+    @FindBy(xpath = ".//button[@aria-label='Next Month']")
+    WebElement nextMonth;
 
     String citiesName;
     String citiesNameDest;
+    Boolean result;
+    static String parentWindow;
+
     public FlightSearchPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
-    public void isSignInFramePresent() {
+    public Boolean isSignInFramePresent() throws InterruptedException {
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@id,'credential_picker_container')]")));
+            WebElement signGoogle = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@id,'credential_picker_container')]")));
+            System.out.println(signGoogle.isDisplayed());
+            //if (signGoogle.isDisplayed()) {
             driver.switchTo().frame(parentDiv.findElement(By.tagName("iframe")));
             System.out.println("inside iframe");
             Thread.sleep(5000);
             String text = driver.findElement(By.xpath("//h1/span[text()='Sign in with Google']")).getText();
             System.out.println(text);
             if (text.equals("Sign in with Google")) {
-                closeSignInFrame();
+                //closeSignInFrame();
+                result = true;
             }
-
-        } catch (NoSuchElementException | InterruptedException e) {
+        } catch (Exception e) {
             // The frame is not present
-            e.printStackTrace();
+
+            result = false;
             System.out.println("Frame or signInFrame not present");
         }
+        return result;
     }
 
     public void closeSignInFrame() {
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='animated-container']/div/child::div[1]/child::div[2]")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='animated-container']/div/child::div[1]/child::div[2] | //div[@aria-label = 'Remove']")));
         js.executeScript("arguments[0].click();", closeIcon);
         driver.switchTo().defaultContent();
 
@@ -121,62 +135,40 @@ public class FlightSearchPage {
 
 
     public void enterDepartureAndReturnDates() {
+        //String month = departureMonth;
         departureDate.click();
-
-        WebElement dataMonthSelector = driver.findElement(By.xpath("//div[@data-month='2024-02']"));
-        dataMonthSelector.findElement(By.xpath("//div[@aria-label='Thursday February 1, 2024']")).click();
-
-        returnDate.click();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@aria-label='Saturday February 10, 2024']")));
-        WebElement datePicker = dataMonthSelector.findElement(By.xpath("//div[@aria-label='Saturday February 10, 2024']"));
+        //Thread.sleep(1000);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement monthToBeSelected = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='ATGJ-monthWrapper']")));
+        WebElement datePicker = monthToBeSelected.findElement(By.xpath("//div[@aria-label='Monday March 4, 2024']"));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", datePicker);
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", datePicker);
-        //datePicker.click();
+
+
+        returnDate.click();
+
+        WebElement returnMonthToBeSelected = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@aria-label='End date calendar input']")));
+        WebElement datePicker1 = returnMonthToBeSelected.findElement(By.xpath("//div[@aria-label='Sunday March 10, 2024']"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", datePicker1);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", datePicker1);
+
 
     }
+
 
     public void clickSearchButton() {
+        // WebElement element = driver.findElement(By.yourSelector);
+        boolean result = false;
+        if (driver instanceof ChromeDriver) {
+            Actions actions = new Actions(driver);
+            actions.moveToElement(searchButton).click().perform();
+        } else {
 
-        searchButton.click();
+            searchButton.click();
 
-    }
-
-    public boolean  resultPageIsDisplayed() {
-        System.out.println("inside resultPageIsDisplayed");
-       WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[@aria-label='Search for flights ']")));
-
-        WebElement body = driver.findElement(By.xpath("//a[@aria-label='Search for flights ']"));
-        System.out.println(body.getText());
-
-        return body.isDisplayed();
-
+                }
+            }
 
     }
 
-    public void  originPlaceIsSameAsFromPlace(String originPlace) {
 
-     // WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        FluentWait<WebDriver> wait = new FluentWait<>(driver)
-                .withTimeout(Duration.ofSeconds(10))
-                .pollingEvery(Duration.ofMillis(100))
-                .ignoring(NoSuchElementException.class);
-      WebElement bestFlight=  wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='btf6'] //div[text()='Best']")));
-
-     //  WebElement bestFlight = driver.findElement(By.xpath("//div[@class='btf6'] //div[text()='Best']"));
-
-
-
-       System.out.println(bestFlight);
-       // JavascriptExecutor js = (JavascriptExecutor) driver;
-        //js.executeScript("arguments[0].click();",bestFlight);
-
-
-
-
-
-
-    }
-
-}

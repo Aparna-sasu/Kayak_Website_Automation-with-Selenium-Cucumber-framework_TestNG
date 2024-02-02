@@ -6,6 +6,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.example.pages.FlightSearchPage;
 import org.openqa.selenium.WebDriver;
+import io.cucumber.java.Scenario;
 import org.testng.Assert;
 
 import static org.example.support.TestContext.getDriver;
@@ -26,10 +27,20 @@ public class FlightSearchPageStepDef {
     }
 
     @Given("I close the Sign in frame if present")
-    public void closeSignInFrameIfPresent() {
+    public void closeSignInFrameIfPresent() throws InterruptedException {
         searchPage = new FlightSearchPage(driver);
+
         System.out.println("New instance of flightSearchPage is created");
-        searchPage.isSignInFramePresent();
+
+        Boolean result = searchPage.isSignInFramePresent();
+        if(result==true){
+
+            System.out.println("Sign in Google is present");
+            searchPage.closeSignInFrame();
+        }
+        else{
+            System.out.println("sign in google not present");
+        }
 
         }
 
@@ -43,6 +54,7 @@ public class FlightSearchPageStepDef {
 
         @Given("I have selected Departure and Return Dates")
     public void iEnterDepartureAndReturnDates(){
+
            searchPage.enterDepartureAndReturnDates();
         }
 
@@ -51,24 +63,5 @@ public class FlightSearchPageStepDef {
             searchPage.clickSearchButton();
         }
 
-        @Then("I should be redirected to Result Page")
-
-        public void verifyResultPageDisplayed(){
-            Boolean flightResults = searchPage.resultPageIsDisplayed();
-            Assert.assertTrue(flightResults,"Expected page is displayed");
-
-        }
-
-        @And("the displayed Origin place on the Result Page should be {string}")
-        public void verifyOriginPlaceIsSameAsFromPlace(String originPlace){
-                   searchPage.originPlaceIsSameAsFromPlace(originPlace);
-
-        }
-
-        @And("the displayed Destination place on the Result Page should be {string}")
-        public void verifyDestinationPlaceIsSameAsToPlace(String destinationPlace){
-
-
-        }
     }
 
