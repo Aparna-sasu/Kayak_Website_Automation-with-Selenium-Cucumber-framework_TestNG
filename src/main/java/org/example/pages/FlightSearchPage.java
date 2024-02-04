@@ -45,15 +45,12 @@ public class FlightSearchPage {
 
     @FindBy(xpath = "//button[@aria-label='Search']")
     WebElement searchButton;
-    @FindBy(xpath = ".//div[@class='wHSr-monthName']")
-    WebElement monthName;
-    @FindBy(xpath = ".//button[@aria-label='Next Month']")
-    WebElement nextMonth;
+
 
     String citiesName;
     String citiesNameDest;
     Boolean result;
-    static String parentWindow;
+
 
     public FlightSearchPage(WebDriver driver) {
         this.driver = driver;
@@ -137,38 +134,43 @@ public class FlightSearchPage {
     public void enterDepartureAndReturnDates() {
         //String month = departureMonth;
         departureDate.click();
+        System.out.println("clicked departure field");
         //Thread.sleep(1000);
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement monthToBeSelected = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='ATGJ-monthWrapper']")));
         WebElement datePicker = monthToBeSelected.findElement(By.xpath("//div[@aria-label='Monday March 4, 2024']"));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", datePicker);
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", datePicker);
-
+        System.out.println("Selected departure date");
 
         returnDate.click();
 
+        System.out.println("clicked return date");
         WebElement returnMonthToBeSelected = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@aria-label='End date calendar input']")));
         WebElement datePicker1 = returnMonthToBeSelected.findElement(By.xpath("//div[@aria-label='Sunday March 10, 2024']"));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", datePicker1);
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", datePicker1);
 
-
+        System.out.println("Selected return date");
     }
 
 
     public void clickSearchButton() {
-        // WebElement element = driver.findElement(By.yourSelector);
+
         boolean result = false;
         if (driver instanceof ChromeDriver) {
             Actions actions = new Actions(driver);
             actions.moveToElement(searchButton).click().perform();
         } else {
-
+            System.out.println(driver.getWindowHandle());
+            System.out.println("title of current page: " + driver.getTitle());
             searchButton.click();
 
-                }
-            }
-
+        }
     }
+}
+
+
+
 
 

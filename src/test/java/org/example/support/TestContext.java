@@ -18,8 +18,8 @@ public class TestContext {
         System.out.println("Comes first here to setup method in TestContext class");
        WebDriverManager.firefoxdriver().setup();
        driver = new FirefoxDriver();
-       // WebDriverManager.chromedriver().setup();
-       // driver = new ChromeDriver();
+        //WebDriverManager.chromedriver().setup();
+       //driver = new ChromeDriver();
        System.out.println("Creates new driver instance");
 
     }

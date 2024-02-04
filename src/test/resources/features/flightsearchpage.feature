@@ -8,13 +8,13 @@ Background:
     Given I have selected Departure and Return Dates
     When I click on Search button
     Then I should be redirected to Result Page
-    And the displayed Origin place on the Result Page should be <fromPlace>
-    And the displayed Destination place on the Result Page should be <toPlace>
+    And the displayed Origin place and Destination place on the Result Page should be <fromPlace> and <toPlace>
+
     Examples:
       | fromPlace | toPlace |
       | "Manila"  | "Delhi" |
-     # | "SFO"  | "Michigan" |
-     # | "Canada"  | "Seattle" |
+      | "Mexico"  | "Chennai" |
+      | "Florida"  | "Atlanta" |
 
 
 

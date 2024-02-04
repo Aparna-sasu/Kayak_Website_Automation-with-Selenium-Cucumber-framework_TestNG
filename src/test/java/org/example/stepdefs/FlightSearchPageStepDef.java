@@ -1,13 +1,11 @@
 package org.example.stepdefs;
 
-import io.cucumber.java.en.And;
+
 import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.example.pages.FlightSearchPage;
 import org.openqa.selenium.WebDriver;
-import io.cucumber.java.Scenario;
-import org.testng.Assert;
+
 
 import static org.example.support.TestContext.getDriver;
 
