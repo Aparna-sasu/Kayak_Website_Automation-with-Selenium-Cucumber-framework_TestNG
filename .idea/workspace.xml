@@ -6,12 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="58e143df-d7ba-4c54-8ec1-9f70ed4a9080" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/pages/FlightSearchPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/pages/FlightSearchPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/pages/ResultPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/pages/ResultPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/example/stepdefs/FlightSearchPageStepDef.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/example/stepdefs/FlightSearchPageStepDef.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/example/stepdefs/ResultPageStepDef.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/example/stepdefs/ResultPageStepDef.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/org/example/support/Hooks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/example/support/Hooks.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/example/support/TestContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/example/support/TestContext.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/example/support/TestRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/example/support/TestRunner.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/features/flightsearchpage.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/flightsearchpage.feature" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/report.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/report.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/report.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/report.json" afterDir="false" />
@@ -25,6 +23,26 @@
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Kayak_Automation_With_Cucumber_TestNG" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">

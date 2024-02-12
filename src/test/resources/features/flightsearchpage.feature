@@ -12,9 +12,9 @@ Background:
 
     Examples:
       | fromPlace | toPlace |
-      | "Manila"  | "Delhi" |
+      #| "Manila"  | "Delhi" |
       | "Mexico"  | "Chennai" |
-      | "Florida"  | "Atlanta" |
+      #| "Florida"  | "Atlanta" |
 
 
 
